@@ -1,0 +1,317 @@
+Ôr@Ÿªassertions¤code´customTransformCache¬dependencies¢id¤meta±moduleSideEffects¬originalCode±originalSourcemap«resolvedIds®sourcemapChainµsyntheticNamedExportsµtransformDependencies®transformFiles¨cacheAstÔrAÚ!qif (!("finalizeConstruction" in ViewPU.prototype)) {
+    Reflect.set(ViewPU.prototype, "finalizeConstruction", () => { });
+}
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import hilog from "@ohos.hilog";
+import { initTabData } from '../viewmodel/TabViewModel';
+import { Constants } from '../common/Constants';
+class BackgroundLightTab extends ViewPU {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda = undefined, extraInfo) {
+        super(parent, __localStorage, elmtId, extraInfo);
+        if (typeof paramsLambda === "function") {
+            this.paramsGenerator_ = paramsLambda;
+        }
+        this.__tabArray = new ObservedPropertyObjectPU(initTabData(), this, "tabArray");
+        this.__focusIndex = new ObservedPropertySimplePU(0, this, "focusIndex");
+        this.__index = new ObservedPropertySimplePU(0, this, "index");
+        this.controller = new TabsController();
+        this.listScroller = new Scroller();
+        this.barHeight = 0;
+        this.setInitiallyProvidedValue(params);
+        this.finalizeConstruction();
+    }
+    setInitiallyProvidedValue(params) {
+        if (params.tabArray !== undefined) {
+            this.tabArray = params.tabArray;
+        }
+        if (params.focusIndex !== undefined) {
+            this.focusIndex = params.focusIndex;
+        }
+        if (params.index !== undefined) {
+            this.index = params.index;
+        }
+        if (params.controller !== undefined) {
+            this.controller = params.controller;
+        }
+        if (params.listScroller !== undefined) {
+            this.listScroller = params.listScroller;
+        }
+        if (params.barHeight !== undefined) {
+            this.barHeight = params.barHeight;
+        }
+    }
+    updateStateVars(params) {
+    }
+    purgeVariableDependenciesOnElmtId(rmElmtId) {
+        this.__tabArray.purgeDependencyOnElmtId(rmElmtId);
+        this.__focusIndex.purgeDependencyOnElmtId(rmElmtId);
+        this.__index.purgeDependencyOnElmtId(rmElmtId);
+    }
+    aboutToBeDeleted() {
+        this.__tabArray.aboutToBeDeleted();
+        this.__focusIndex.aboutToBeDeleted();
+        this.__index.aboutToBeDeleted();
+        SubscriberManager.Get().delete(this.id__());
+        this.aboutToBeDeletedInternal();
+    }
+    get tabArray() {
+        return this.__tabArray.get();
+    }
+    set tabArray(newValue) {
+        this.__tabArray.set(newValue);
+    }
+    get focusIndex() {
+        return this.__focusIndex.get();
+    }
+    set focusIndex(newValue) {
+        this.__focusIndex.set(newValue);
+    }
+    get index() {
+        return this.__index.get();
+    }
+    set index(newValue) {
+        this.__index.set(newValue);
+    }
+    tabBuilder(tabName, tabIndex, parent = null) {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Row.create();
+            Row.justifyContent(FlexAlign.Center);
+            Row.width(96);
+            Row.backgroundColor(tabIndex === this.focusIndex ? '#0A59F7' : '#0D000000');
+            Row.borderRadius(21);
+            Row.height(40);
+            Row.margin({ left: 8, right: 8 });
+            Row.onClick(() => {
+                this.controller.changeIndex(tabIndex);
+                this.listScroller.scrollToIndex(tabIndex, true, ScrollAlign.CENTER);
+            });
+        }, Row);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Text.create(tabName);
+            Text.fontSize(14);
+            Text.fontColor(tabIndex === this.focusIndex ? Color.White : '#E6000000');
+            Text.id(tabIndex.toString());
+        }, Text);
+        Text.pop();
+        Row.pop();
+    }
+    initialRender() {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Column.create();
+            Column.height('100%');
+        }, Column);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Row.create();
+            Row.alignItems(VerticalAlign.Center);
+            Row.height(52);
+            Row.margin({ top: 8 });
+        }, Row);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            // [Start BackgroundLightTab_list]
+            List.create({ scroller: this.listScroller });
+            // [Start BackgroundLightTab_list]
+            List.width('100%');
+            // [Start BackgroundLightTab_list]
+            List.height('100%');
+            // [Start BackgroundLightTab_list]
+            List.listDirection(Axis.Horizontal);
+            // [Start BackgroundLightTab_list]
+            List.scrollBar(BarState.Off);
+        }, List);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            ForEach.create();
+            const forEachItemGenFunction = (_item, index) => {
+                const item = _item;
+                this.tabBuilder.bind(this)(item.name, index);
+            };
+            this.forEachUpdateFunction(elmtId, this.tabArray.slice(0, 6), forEachItemGenFunction, (item, index) => JSON.stringify(item) + index, true, true);
+        }, ForEach);
+        ForEach.pop();
+        // [Start BackgroundLightTab_list]
+        List.pop();
+        Row.pop();
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            // [Start Underline_tab_tabs_part]
+            Tabs.create({ barPosition: BarPosition.Start, controller: this.controller });
+            // [Start Underline_tab_tabs_part]
+            Tabs.width('100%');
+            // [Start Underline_tab_tabs_part]
+            Tabs.barHeight(this.barHeight);
+            // [Start Underline_tab_tabs_part]
+            Tabs.animationDuration(Constants.ANIMATION_DURATION);
+            // [Start Underline_tab_tabs_part]
+            Tabs.onAnimationStart((index, targetIndex) => {
+                hilog.info(0x0000, 'index', index.toString());
+                this.focusIndex = targetIndex;
+                this.listScroller.scrollToIndex(targetIndex, true, ScrollAlign.CENTER);
+            });
+        }, Tabs);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            ForEach.create();
+            const forEachItemGenFunction = _item => {
+                const item = _item;
+                this.observeComponentCreation2((elmtId, isInitialRender) => {
+                    TabContent.create(() => {
+                        this.observeComponentCreation2((elmtId, isInitialRender) => {
+                            Row.create();
+                            Row.width('100%');
+                            Row.justifyContent(FlexAlign.Center);
+                        }, Row);
+                        this.observeComponentCreation2((elmtId, isInitialRender) => {
+                            Text.create(item.name);
+                            Text.height(300);
+                            Text.fontSize(30);
+                        }, Text);
+                        Text.pop();
+                        Row.pop();
+                    });
+                    TabContent.backgroundColor(Color.White);
+                }, TabContent);
+                TabContent.pop();
+            };
+            this.forEachUpdateFunction(elmtId, this.tabArray.slice(0, 6), forEachItemGenFunction, (item, index) => JSON.stringify(item) + index, false, true);
+        }, ForEach);
+        ForEach.pop();
+        // [Start Underline_tab_tabs_part]
+        Tabs.pop();
+        Column.pop();
+    }
+    rerender() {
+        this.updateDirtyElements();
+    }
+    static getEntryName() {
+        return "BackgroundLightTab";
+    }
+}
+registerNamedRoute(() => new BackgroundLightTab(undefined, {}), "", { bundleName: "com.example.multitabs", moduleName: "entry", pagePath: "pages/BackgroundLightTab", pageFullPath: "entry/src/main/ets/pages/BackgroundLightTab", integratedHsp: "false", moduleType: "followWithHap" });
+//# sourceMappingURL=BackgroundLightTab.js.mapÂ“Ùh hvigor_ignore__Applications_DevEco-Studio.app_Contents_sdk_default_openharmony_ets_api_@ohos.hilog.d.tsÙf/Users/moqi/Desktop/Open_Harmony/code/MultiTabNavigation/entry/src/main/ets/viewmodel/TabViewModel.etsÙ`/Users/moqi/Desktop/Open_Harmony/code/MultiTabNavigation/entry/src/main/ets/common/Constants.etsÙh/Users/moqi/Desktop/Open_Harmony/code/MultiTabNavigation/entry/src/main/ets/pages/BackgroundLightTab.etsÔrBšªmoduleName±isLocalDependency¯isNodeEntryFile§pkgPath±belongProjectPath§pkgNameªpkgVersion±dependencyPkgInfo°belongModulePath¬shouldEmitJs¥entryÃÂÙ>/Users/moqi/Desktop/Open_Harmony/code/MultiTabNavigation/entryÙ8/Users/moqi/Desktop/Open_Harmony/code/MultiTabNavigation¥entry¥1.0.0Ô  Ù>/Users/moqi/Desktop/Open_Harmony/code/MultiTabNavigation/entryÃÃÚ/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { initTabData } from '../viewmodel/TabViewModel';
+import { TabItem } from '../viewmodel/TabItem';
+import { Constants } from '../common/Constants';
+
+@Entry
+@Component
+struct BackgroundLightTab {
+  @State tabArray: Array<TabItem> = initTabData();
+  @State focusIndex: number = 0;
+  @State index: number = 0;
+  private controller: TabsController = new TabsController();
+  private listScroller: Scroller = new Scroller();
+  private barHeight: number = 0;
+
+  @Builder
+  tabBuilder(tabName: string | Resource, tabIndex: number) {
+    Row() {
+      Text(tabName)
+        .fontSize(14)
+        .fontColor(tabIndex === this.focusIndex ? Color.White : '#E6000000')
+        .id(tabIndex.toString())
+    }
+    .justifyContent(FlexAlign.Center)
+    .width(96)
+    .backgroundColor(tabIndex === this.focusIndex ? '#0A59F7' : '#0D000000')
+    .borderRadius(21)
+    .height(40)
+    .margin({ left: 8, right: 8 })
+    .onClick(() => {
+      this.controller.changeIndex(tabIndex);
+      this.listScroller.scrollToIndex(tabIndex, true, ScrollAlign.CENTER);
+    })
+  }
+
+  build() {
+    Column() {
+      Row() {
+        // [Start BackgroundLightTab_list]
+        List({ scroller: this.listScroller }) {
+          ForEach(this.tabArray.slice(0, 6),
+            (item: TabItem, index: number) => {
+              this.tabBuilder(item.name, index);
+            }, (item: TabItem, index: number) => JSON.stringify(item) + index)
+        }
+        // [End BackgroundLightTab_list]
+        .width('100%')
+        .height('100%')
+        .listDirection(Axis.Horizontal)
+        .scrollBar(BarState.Off)
+      }
+      .alignItems(VerticalAlign.Center)
+      .height(52)
+      .margin({ top: 8 })
+      // [Start Underline_tab_tabs_part]
+      Tabs({ barPosition: BarPosition.Start, controller: this.controller }) {
+        ForEach(this.tabArray.slice(0, 6),
+          (item: TabItem) => {
+            TabContent() {
+              Row() {
+                Text(item.name)
+                  .height(300)
+                  .fontSize(30)
+              }
+              .width('100%')
+              .justifyContent(FlexAlign.Center)
+            }
+            .backgroundColor(Color.White)
+          }, (item: TabItem, index: number) => JSON.stringify(item) + index)
+      }
+      .width('100%')
+      // [End Underline_tab_tabs_part]
+      .barHeight(this.barHeight)
+      .animationDuration(Constants.ANIMATION_DURATION)
+      .onAnimationStart((index: number, targetIndex: number) => {
+        hilog.info(0x0000, 'index', index.toString());
+        this.focusIndex = targetIndex;
+        this.listScroller.scrollToIndex(targetIndex, true, ScrollAlign.CENTER);
+      })
+    }
+    .height('100%')
+  }
+}ÀÔrC“«@ohos.hilog¹../viewmodel/TabViewModel³../common/ConstantsÔrD—ªassertions¨external¢id¤meta±moduleSideEffectsªresolvedByµsyntheticNamedExportsAÃÙh hvigor_ignore__Applications_DevEco-Studio.app_Contents_sdk_default_openharmony_ets_api_@ohos.hilog.d.tsAÃªoh-resolveÂDAÂÙf/Users/moqi/Desktop/Open_Harmony/code/MultiTabNavigation/entry/src/main/ets/viewmodel/TabViewModel.etsAÃªoh-resolveÂDAÂÙ`/Users/moqi/Desktop/Open_Harmony/code/MultiTabNavigation/entry/src/main/ets/common/Constants.etsAÃªoh-resolveÂ“ÔrE–§version¤fileªsourceRoot§sources¥names¨mappingsµBackgroundLightTab.js ‘¶BackgroundLightTab.etsÜ ¿‘”    ‘” –”   ” 	” ” ” 3”  4˜”   ” ”	 	” ” ” ”7 7”8 8˜”   ” ”	 	” ” ” ”/ /”0 0’” ” ‘”  “”7 $”ÌB /”ÌD 1’”9 ”: ’”4 ”5 ”” '” +”, 9”. ;”” #”  '”( /”* 1’” ” ‘” 0’” 	” ’” 	” ’” 	” ’” 	” ’” 	” ’” 	” –” ” ” ” '” )”  9’”  ”  ˜”  ”  ” &” &” &”( &”) &”/ &$–”  ”  ” '” '
+” '” 'Ü ”  ”  ” (” (”  (”( (”- ("”1 (&”2 ('”< (1”= (2”> (3”? (4”ÌH (=”ÌI (>”ÌJ (?”ÌK (Ì@”ÌV (ÌK–”  ”  ” )” )” )” )–”  ”  ” *” *” *” *”  ”  ” +” +” +” +” +” +”  +”" +”' +”) +”* +”, +!—”  ”  ” ,” ,” ,” ,” ,š” -” -
+” -” -”  -”+ -!”, -"”4 -*”5 -+”6 -,Ü ” .” .
+” .”! .”" .”/ .%”0 .&”8 ..”: .0”> .4”Ì@ .6”ÌK .ÌA”ÌL .ÌB”ÌR .ÌH”ÌS .ÌI”ÌT .ÌJ’” /” /”” !” !
+” !” !–” !” !
+” "	” "” "” "Ü ” !” !
+” #	” #” #”# #”( # ”, #$”- #%”7 #/”8 #0”9 #1”: #2”? #7”Ì@ #8”ÌE #=”ÌF #>”ÌG #?”ÌH #Ì@”ÌS #ÌK™” !” !
+” $	” $” $” $” $”% $”' $’” !” !
+’”  ”  ‘” 0‘” 2’” 3” 3
+–” 3” 3
+” Ì_” Ì_” Ì_”  Ì_’” 4” 4	˜” 4” 4	” ÌB” ÌB” ÌB”( ÌB”) ÌB ”/ ÌB&–” 4” 4	” ÌC” ÌC” ÌC” ÌCš” 4” 4	” ÌD” ÌD” ÌD” ÌD” ÌD” ÌD” ÌD”! ÌD’” 5”. 5*š” 6” 6” 6” 6”" 6”$ 6”( 6”) 6”5 6*”7 6,’” 5”. 5*–” 6” 6” =	” =” =” =’” 5”. 5*–” 6” 6” >	” >” >” >’” 5”. 5*˜” 6” 6” ?	” ?” ?”# ?”$ ?”. ?&’” 5”. 5*˜” 6” 6” Ì@	” Ì@” Ì@”# Ì@”$ Ì@”' Ì@’” 7
+” 7’”3 8”8 8)›” 9” 9” 9” 9”+ 9”/ 9"”0 9#”4 9'”6 9)”; 9.”< 9/Ü ”/ 7”3 7”4 7”< 7”= 7 ”ÌB 7%”ÌC 7&”ÌD 7'”ÌF 7)”ÌG 7*”ÌH 7+”Ìb :”Ìc :”Ìg :”Ìi :”Ìn :,”Ìp :.”Ìr :0”Ìs :1”Ìw :5”Ìx :6”Ì :?”Ì‚ :Ì@”Ì† :ÌD”Ì‡ :ÌE”ÌŠ :ÌH”Ì :ÌM’” 7
+” 7’” 5”* 5*’” 6” 6’” 4” 4	’” ÌE”. ÌE(Ü ” ÌF” ÌF
+” ÌF” ÌF”% ÌF”' ÌF”2 ÌF%”3 ÌF&”8 ÌF+”: ÌF-”ÌD ÌF7”ÌF ÌF9”ÌJ ÌF=”ÌK ÌF>”ÌU ÌFÌH”ÌW ÌFÌJ’” ÌE”. ÌE(–” ÌF” ÌF
+” ÌU” ÌU” ÌU” ÌU’” ÌE”. ÌE(˜” ÌF” ÌF
+” ÌW” ÌW” ÌW” ÌW”  ÌW”) ÌW’” ÌE”. ÌE(˜” ÌF” ÌF
+” ÌX”" ÌX”# ÌX”, ÌX"”- ÌX#”? ÌX5’” ÌE”. ÌE(›” ÌF” ÌF
+” ÌY”! ÌY”" ÌY”# ÌY”( ÌY&”* ÌY(”5 ÌY;”7 ÌY=”9 ÌY?Ÿ” ÌZ” ÌZ” ÌZ” ÌZ” ÌZ”! ÌZ”# ÌZ”* ÌZ"”, ÌZ$”1 ÌZ)”2 ÌZ*”: ÌZ2”< ÌZ4”= ÌZ5”> ÌZ6—” Ì[” Ì[” Ì[” Ì[”" Ì[”- Ì[%”. Ì[&Ü ” Ì\” Ì\” Ì\”! Ì\”" Ì\”/ Ì\'”0 Ì\(”; Ì\3”= Ì\5”ÌA Ì\9”ÌC Ì\;”ÌN Ì\ÌF”ÌO Ì\ÌG”ÌU Ì\ÌM”ÌV Ì\ÌN”ÌW Ì\ÌO’” Ì]” Ì]’” ÌG” ÌG’” ÌJ” ÌJ–” ÌJ” ÌJ”  ÌO”% ÌO”& ÌO”, ÌO˜” ÌJ” ÌJ”  ÌP”. ÌP”/ ÌP”8 ÌP'”9 ÌP(”? ÌP.–” ÌK”  ÌK”( ÌK”, ÌK”- ÌK”1 ÌK–” ÌK”  ÌK”! ÌL”' ÌL”( ÌL”+ ÌL–” ÌK”  ÌK”! ÌM”) ÌM”* ÌM”, ÌM’” ÌK” ÌK’” ÌJ” ÌJ–” ÌR”. ÌR”/ ÌR”4 ÌR"”5 ÌR#”: ÌR(Ü ”/ ÌG”3 ÌG”4 ÌG”< ÌG”= ÌG”ÌB ÌG#”ÌC ÌG$”ÌD ÌG%”ÌF ÌG'”ÌG ÌG(”ÌH ÌG)”Ìb ÌS”Ìc ÌS”Ìg ÌS”Ìi ÌS”Ìn ÌS*”Ìp ÌS,”Ìr ÌS.”Ìs ÌS/”Ìw ÌS3”Ìx ÌS4”Ì ÌS=”Ì‚ ÌS>”Ì† ÌSÌB”Ì‡ ÌSÌC”ÌŠ ÌSÌF”Ì ÌSÌK’” ÌG” ÌG’” ÌE”* ÌE(’” ÌF” ÌF
+’” 3” 3
+‘” Ì`ÔrF–§version¤file§sources®sourcesContent¥names¨mappingsÀ‘À‘ÀÜ È‘”    ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”  	 ‘”  
+ ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”    ‘”  ! ‘”  " ‘”  # ‘”  $ ‘”  % ‘”  & ‘”  ' ‘”  ( ‘”  ) ‘”  * ‘”  + ‘”  , ‘”  - ‘”  . ‘”  / ‘”  0 ‘”  1 ‘”  2 ‘”  3 ‘”  4 ‘”  5 ‘”  6 ‘”  7 ‘”  8 ‘”  9 ‘”  : ‘”  ; ‘”  < ‘”  = ‘”  > ‘”  ? ‘”  Ì@ ‘”  ÌA ‘”  ÌB ‘”  ÌC ‘”  ÌD ‘”  ÌE ‘”  ÌF ‘”  ÌG ‘”  ÌH ‘”  ÌI ‘”  ÌJ ‘”  ÌK ‘”  ÌL ‘”  ÌM ‘”  ÌN ‘”  ÌO ‘”  ÌP ‘”  ÌQ ‘”  ÌR ‘”  ÌS ‘”  ÌT ‘”  ÌU ‘”  ÌV ‘”  ÌW ‘”  ÌX ‘”  ÌY ‘”  ÌZ ‘”  Ì[ ‘”  Ì\ ‘”  Ì] ‘”  Ì^ ‘”  Ì_ ‘”  Ì` ‘”  Ìa ‘”  Ìb ‘”  Ìc ‘”  Ìd ‘”  Ìe ‘”  Ìf ‘”  Ìg ‘”  Ìh ‘”  Ìi ‘”  Ìj ‘”  Ìk ‘”  Ìl ‘”  Ìm ‘”  Ìn ‘”  Ìo ‘”  Ìp ‘”  Ìq ‘”  Ìr ‘”  Ìs ‘”  Ìt ‘”  Ìu ‘”  Ìv ‘”  Ìw ‘”  Ìx ‘”  Ìy ‘”  Ìz ‘”  Ì{ ‘”  Ì| ‘”  Ì} ‘”  Ì~ ‘”  Ì ‘”  Ì€ ‘”  Ì ‘”  Ì‚ ‘”  Ìƒ ‘”  Ì„ ‘”  Ì… ‘”  Ì† ‘”  Ì‡ ‘”  Ìˆ ‘”  Ì‰ ‘”  ÌŠ ‘”  Ì‹ ‘”  ÌŒ ‘”  Ì ‘”  Ì ‘”  Ì ‘”  Ì ‘”  Ì‘ ‘”  Ì’ ‘”  Ì“ ‘”  Ì” ‘”  Ì• ‘”  Ì– ‘”  Ì— ‘”  Ì˜ ‘”  Ì™ ‘”  Ìš ‘”  Ì› ‘”  Ìœ ‘”  Ì ‘”  Ì ‘”  ÌŸ ‘”  Ì  ‘”  Ì¡ ‘”  Ì¢ ‘”  Ì£ ‘”  Ì¤ ‘”  Ì¥ ‘”  Ì¦ ‘”  Ì§ ‘”  Ì¨ ‘”  Ì© ‘”  Ìª ‘”  Ì« ‘”  Ì¬ ‘”  Ì­ ‘”  Ì® ‘”  Ì¯ ‘”  Ì° ‘”  Ì± ‘”  Ì² ‘”  Ì³ ‘”  Ì´ ‘”  Ìµ ‘”  Ì¶ ‘”  Ì· ‘”  Ì¸ ‘”  Ì¹ ‘”  Ìº ‘”  Ì» ‘”  Ì¼ ‘”  Ì½ ‘”  Ì¾ ‘”  Ì¿ ‘”  ÌÀ ‘”  ÌÁ ‘”  ÌÂ ‘”  ÌÃ ‘”  ÌÄ ‘”  ÌÅ ‘”  ÌÆ ‘”  ÌÇ ÔrG’§missing¦pluginÃ¦genAbcÂÔ  ÔrH”²dynamicImportCache¹exportAllDeclarationCache»exportNamedDeclarationCache«importCache“ÔrI•¤type¥start£endªspecifiers¦source±ImportDeclarationÍîÍ‘ÔrJ”¤type¥start£end¥local¶ImportDefaultSpecifierÍõÍúÔrK”¤type¥start£end¤nameªIdentifierÍõÍú¥hilogÔrL•¤type¥start£end¥value£raw§LiteralÍ Í«@ohos.hilog­"@ohos.hilog"I±ImportDeclarationÍÍH‘ÔrM•¤type¥start£end¨imported¥local¯ImportSpecifierÍÍ$KªIdentifierÍÍ$«initTabDataKªIdentifierÍÍ$«initTabDataL§LiteralÍ,ÍG¹../viewmodel/TabViewModel»'../viewmodel/TabViewModel'I±ImportDeclarationÍJÍz‘M¯ImportSpecifierÍSÍ\KªIdentifierÍSÍ\©ConstantsKªIdentifierÍSÍ\©ConstantsL§LiteralÍdÍy³../common/Constantsµ'../common/Constants'

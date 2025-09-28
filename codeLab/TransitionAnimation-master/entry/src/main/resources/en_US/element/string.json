@@ -1,0 +1,71 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Main program entry"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "TransitionAnimation"
+    },
+    {
+      "name": "Component_transition_toggle",
+      "value": "Toggle"
+    },
+    {
+      "name": "Component_transition_header",
+      "value": "In Component Transition"
+    },
+    {
+      "name": "Share_Item_header",
+      "value": "Shared Element Transition"
+    },
+    {
+      "name": "Share_Item_hint",
+      "value": "Click to view the shared element transition effect"
+    },
+    {
+      "name": "modal_transition_hint",
+      "value": "Click to view the modal transition effect"
+    },
+    {
+      "name": "main_page_title",
+      "value": "Transition Animation"
+    },{
+      "name": "title_navigation_transition",
+      "value": "PageTransition: slide from bottom"
+    },
+    {
+      "name": "title_custom_transition",
+      "value": "PageTransition: custom"
+    },
+    {
+      "name": "title_component_transition",
+      "value": "Transition"
+    },
+    {
+      "name": "title_modal_transition",
+      "value": "ModalTransition"
+    },
+    {
+      "name": "title_share_item",
+      "value": "SharedTransition"
+    },
+    {
+      "name": "title_long_take_transition",
+      "value": "Long take transition"
+    },
+    {
+      "name": "content",
+      "value": "The two nodes of appearance and disappearance are related in terms of position, size, and content."
+    },
+    {
+      "name": "title_image",
+      "value": "Image"
+    }
+  ]
+}

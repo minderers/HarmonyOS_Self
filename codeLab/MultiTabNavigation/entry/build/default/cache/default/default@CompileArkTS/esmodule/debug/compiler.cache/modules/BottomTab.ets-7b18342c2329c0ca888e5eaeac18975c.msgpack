@@ -1,0 +1,341 @@
+Ôr@Ÿªassertions¤code´customTransformCache¬dependencies¢id¤meta±moduleSideEffects¬originalCode±originalSourcemap«resolvedIds®sourcemapChainµsyntheticNamedExportsµtransformDependencies®transformFiles¨cacheAstÔrAÚ#if (!("finalizeConstruction" in ViewPU.prototype)) {
+    Reflect.set(ViewPU.prototype, "finalizeConstruction", () => { });
+}
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import hilog from "@ohos.hilog";
+import { Constants } from '../common/Constants';
+class BottomTab extends ViewPU {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda = undefined, extraInfo) {
+        super(parent, __localStorage, elmtId, extraInfo);
+        if (typeof paramsLambda === "function") {
+            this.paramsGenerator_ = paramsLambda;
+        }
+        this.__currentIndex = new ObservedPropertySimplePU(0, this, "currentIndex");
+        this.msgNum = 9999;
+        this.tabsController = new TabsController();
+        this.setInitiallyProvidedValue(params);
+        this.finalizeConstruction();
+    }
+    setInitiallyProvidedValue(params) {
+        if (params.currentIndex !== undefined) {
+            this.currentIndex = params.currentIndex;
+        }
+        if (params.msgNum !== undefined) {
+            this.msgNum = params.msgNum;
+        }
+        if (params.tabsController !== undefined) {
+            this.tabsController = params.tabsController;
+        }
+    }
+    updateStateVars(params) {
+    }
+    purgeVariableDependenciesOnElmtId(rmElmtId) {
+        this.__currentIndex.purgeDependencyOnElmtId(rmElmtId);
+    }
+    aboutToBeDeleted() {
+        this.__currentIndex.aboutToBeDeleted();
+        SubscriberManager.Get().delete(this.id__());
+        this.aboutToBeDeletedInternal();
+    }
+    get currentIndex() {
+        return this.__currentIndex.get();
+    }
+    set currentIndex(newValue) {
+        this.__currentIndex.set(newValue);
+    }
+    // [Start tab_builder]
+    tabBuilder(title, index, selectedImg, normalImg, parent = null) {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Column.create();
+            Column.justifyContent(FlexAlign.Center);
+            Column.height(52);
+            Column.width('100%');
+            Column.onClick(() => {
+                this.currentIndex = index;
+                this.tabsController.changeIndex(this.currentIndex);
+            });
+        }, Column);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            If.create();
+            if (index === 0) {
+                this.ifElseBranchUpdateFunction(0, () => {
+                    this.observeComponentCreation2((elmtId, isInitialRender) => {
+                        Badge.create({
+                            count: this.msgNum,
+                            style: { badgeSize: 14 },
+                            maxCount: 999,
+                            position: BadgePosition.RightTop
+                        });
+                        Badge.width(30);
+                    }, Badge);
+                    this.observeComponentCreation2((elmtId, isInitialRender) => {
+                        Image.create(this.currentIndex === index ? selectedImg : normalImg);
+                        Image.width(24);
+                        Image.height(24);
+                        Image.objectFit(ImageFit.Contain);
+                    }, Image);
+                    Badge.pop();
+                });
+            }
+            else if (index === 1) {
+                this.ifElseBranchUpdateFunction(1, () => {
+                    this.observeComponentCreation2((elmtId, isInitialRender) => {
+                        Image.create(this.currentIndex === index ? selectedImg : normalImg);
+                        Image.width(24);
+                        Image.height(24);
+                        Image.objectFit(ImageFit.Contain);
+                    }, Image);
+                });
+            }
+            else {
+                this.ifElseBranchUpdateFunction(2, () => {
+                    this.observeComponentCreation2((elmtId, isInitialRender) => {
+                        Badge.create({
+                            value: '',
+                            style: { badgeSize: 6 },
+                            position: BadgePosition.RightTop
+                        });
+                        Badge.width(30);
+                    }, Badge);
+                    this.observeComponentCreation2((elmtId, isInitialRender) => {
+                        Image.create(this.currentIndex === index ? selectedImg : normalImg);
+                        Image.width(24);
+                        Image.height(24);
+                        Image.objectFit(ImageFit.Contain);
+                    }, Image);
+                    Badge.pop();
+                });
+            }
+        }, If);
+        If.pop();
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Text.create(title);
+            Text.margin({ top: 4 });
+            Text.fontSize(10);
+            Text.fontColor(this.currentIndex === index ? '#3388ff' : '#E6000000');
+        }, Text);
+        Text.pop();
+        Column.pop();
+    }
+    // [End tab_builder]
+    // [Start tab_content_builder]
+    tabContentBuilder(text, index, selectedImg, normalImg, parent = null) {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            TabContent.create(() => {
+                this.observeComponentCreation2((elmtId, isInitialRender) => {
+                    Row.create();
+                    Row.width('100%');
+                    Row.justifyContent(FlexAlign.Center);
+                }, Row);
+                this.observeComponentCreation2((elmtId, isInitialRender) => {
+                    Text.create(text);
+                    Text.height(300);
+                    Text.fontSize(30);
+                }, Text);
+                Text.pop();
+                Row.pop();
+            });
+            TabContent.padding({ left: 12, right: 12 });
+            TabContent.backgroundColor(Color.White);
+            TabContent.tabBar({ builder: () => {
+                    this.tabBuilder.call(this, text, index, selectedImg, normalImg);
+                } });
+        }, TabContent);
+        TabContent.pop();
+    }
+    // [End tab_content_builder]
+    // [Start Tabs]
+    initialRender() {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Tabs.create({
+                barPosition: BarPosition.End,
+                controller: this.tabsController
+            });
+            Tabs.width('100%');
+            Tabs.backgroundColor('#F3F4F5');
+            Tabs.barHeight(52);
+            Tabs.barMode(BarMode.Fixed);
+            Tabs.onAnimationStart((index, targetIndex) => {
+                hilog.info(0x0000, 'index', index.toString());
+                this.currentIndex = targetIndex;
+            });
+        }, Tabs);
+        this.tabContentBuilder.bind(this)({ "id": 16777320, "type": 10003, params: [], "bundleName": "com.example.multitabs", "moduleName": "entry" }, Constants.TAB_INDEX_ZERO, { "id": 16777428, "type": 20000, params: [], "bundleName": "com.example.multitabs", "moduleName": "entry" }, { "id": 16777441, "type": 20000, params: [], "bundleName": "com.example.multitabs", "moduleName": "entry" });
+        this.tabContentBuilder.bind(this)({ "id": 16777325, "type": 10003, params: [], "bundleName": "com.example.multitabs", "moduleName": "entry" }, Constants.TAB_INDEX_ONE, { "id": 16777429, "type": 20000, params: [], "bundleName": "com.example.multitabs", "moduleName": "entry" }, { "id": 16777443, "type": 20000, params: [], "bundleName": "com.example.multitabs", "moduleName": "entry" });
+        this.tabContentBuilder.bind(this)({ "id": 16777291, "type": 10003, params: [], "bundleName": "com.example.multitabs", "moduleName": "entry" }, Constants.TAB_INDEX_TWO, { "id": 16777431, "type": 20000, params: [], "bundleName": "com.example.multitabs", "moduleName": "entry" }, { "id": 16777444, "type": 20000, params: [], "bundleName": "com.example.multitabs", "moduleName": "entry" });
+        Tabs.pop();
+    }
+    rerender() {
+        this.updateDirtyElements();
+    }
+    static getEntryName() {
+        return "BottomTab";
+    }
+}
+registerNamedRoute(() => new BottomTab(undefined, {}), "", { bundleName: "com.example.multitabs", moduleName: "entry", pagePath: "pages/BottomTab", pageFullPath: "entry/src/main/ets/pages/BottomTab", integratedHsp: "false", moduleType: "followWithHap" });
+//# sourceMappingURL=BottomTab.js.mapÂ’Ùh hvigor_ignore__Applications_DevEco-Studio.app_Contents_sdk_default_openharmony_ets_api_@ohos.hilog.d.tsÙ`/Users/moqi/Desktop/Open_Harmony/code/MultiTabNavigation/entry/src/main/ets/common/Constants.etsÙ_/Users/moqi/Desktop/Open_Harmony/code/MultiTabNavigation/entry/src/main/ets/pages/BottomTab.etsÔrBšªmoduleName±isLocalDependency¯isNodeEntryFile§pkgPath±belongProjectPath§pkgNameªpkgVersion±dependencyPkgInfo°belongModulePath¬shouldEmitJs¥entryÃÂÙ>/Users/moqi/Desktop/Open_Harmony/code/MultiTabNavigation/entryÙ8/Users/moqi/Desktop/Open_Harmony/code/MultiTabNavigation¥entry¥1.0.0Ô  Ù>/Users/moqi/Desktop/Open_Harmony/code/MultiTabNavigation/entryÃÃÚ"/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { Constants } from '../common/Constants';
+
+@Entry
+@Component
+struct BottomTab {
+  @State currentIndex: number = 0;
+  private  msgNum: number = 9999;
+  private tabsController: TabsController = new TabsController();
+
+  // [Start tab_builder]
+  @Builder
+  tabBuilder(title: Resource, index: number, selectedImg: Resource, normalImg: Resource) {
+    Column() {
+      if (index === 0) {
+        Badge({
+          count: this.msgNum,
+          style: { badgeSize: 14 },
+          maxCount: 999,
+          position: BadgePosition.RightTop
+        }) {
+          Image(this.currentIndex === index ? selectedImg : normalImg)
+            .width(24)
+            .height(24)
+            .objectFit(ImageFit.Contain)
+        }
+        .width(30)
+      } else if (index === 1) {
+        Image(this.currentIndex === index ? selectedImg : normalImg)
+          .width(24)
+          .height(24)
+          .objectFit(ImageFit.Contain)
+      } else {
+        Badge({
+          value: '',
+          style: { badgeSize: 6 },
+          position: BadgePosition.RightTop
+        }) {
+          Image(this.currentIndex === index ? selectedImg : normalImg)
+            .width(24)
+            .height(24)
+            .objectFit(ImageFit.Contain)
+        }
+        .width(30)
+      }
+
+      Text(title)
+        .margin({ top: 4 })
+        .fontSize(10)
+        .fontColor(this.currentIndex === index ? '#3388ff' : '#E6000000')
+    }
+    .justifyContent(FlexAlign.Center)
+    .height(52)
+    .width('100%')
+    .onClick(() => {
+      this.currentIndex = index;
+      this.tabsController.changeIndex(this.currentIndex);
+    })
+  }
+  // [End tab_builder]
+
+  // [Start tab_content_builder]
+  @Builder
+  tabContentBuilder(text: Resource, index: number, selectedImg: Resource, normalImg: Resource) {
+    TabContent() {
+      Row() {
+        Text(text)
+          .height(300)
+          .fontSize(30)
+      }
+      .width('100%')
+      .justifyContent(FlexAlign.Center)
+    }
+    .padding({ left: 12, right: 12 })
+    .backgroundColor(Color.White)
+    .tabBar(this.tabBuilder(text, index, selectedImg, normalImg))
+  }
+  // [End tab_content_builder]
+  // [Start Tabs]
+  build() {
+    Tabs({
+      barPosition: BarPosition.End,
+      controller: this.tabsController
+    }) {
+      this.tabContentBuilder($r('app.string.message'),
+        Constants.TAB_INDEX_ZERO, $r('app.media.activeMessage'), $r('app.media.message'))
+      this.tabContentBuilder($r('app.string.people'),
+        Constants.TAB_INDEX_ONE, $r('app.media.activePeople'), $r('app.media.people'))
+      this.tabContentBuilder($r('app.string.activity'),
+        Constants.TAB_INDEX_TWO, $r('app.media.activeStar'), $r('app.media.star'))
+    }
+    .width('100%')
+    .backgroundColor('#F3F4F5')
+    .barHeight(52)
+    .barMode(BarMode.Fixed)
+    .onAnimationStart((index: number, targetIndex: number) => {
+      hilog.info(0x0000, 'index', index.toString());
+      this.currentIndex = targetIndex;
+    })
+  }
+  // [End Tabs]
+}ÀÔrC’«@ohos.hilog³../common/ConstantsÔrD—ªassertions¨external¢id¤meta±moduleSideEffectsªresolvedByµsyntheticNamedExportsAÃÙh hvigor_ignore__Applications_DevEco-Studio.app_Contents_sdk_default_openharmony_ets_api_@ohos.hilog.d.tsAÃªoh-resolveÂDAÂÙ`/Users/moqi/Desktop/Open_Harmony/code/MultiTabNavigation/entry/src/main/ets/common/Constants.etsAÃªoh-resolveÂ“ÔrE–§version¤fileªsourceRoot§sources¥names¨mappings¬BottomTab.js ‘­BottomTab.etsÜ ´‘”    ‘” –”   ” 	” ” ” 3”  4˜”   ” ”	 	” ” ” ”/ /”0 0’” ” ‘”  ’”;  ”< !’” ”  ”” +”" /”0 =”2 ?‘” 0’” 	” ’” 	” ’” ” š” ” ” ” ” ” +” -”( ÌB”* ÌD”3 ÌW’” ” 
+˜” ” 
+” ÌB”! ÌB”" ÌB”+ ÌB”, ÌB”2 ÌB$–” ” 
+” ÌC” ÌC” ÌC” ÌC–” ” 
+” ÌD” ÌD
+” ÌD” ÌD—” ” 
+” ÌE” ÌE” ÌE” ÌE”  ÌE—” ÌF” ÌF
+” ÌF”! ÌF”$ ÌF”) ÌF”* ÌF œ” ÌG” ÌG
+” ÌG”# ÌG”$ ÌG”/ ÌG%”0 ÌG&”4 ÌG*”5 ÌG+”ÌA ÌG7”ÌB ÌG8”ÌC ÌG9’” ÌH” ÌH–” ” 
+” ” ” ” “” ” ”% –” 
+”! ”# ”' ”( ”. ˜”  
+”!  ”#  ”%  ”.  ”0  ”2   ”4  "”” !
+”$ !”& !”) !–” "
+”$ "”& "”3 "!”4 ""”< "*‘” #	–” ” ” )	”# )”$ )”& )Ü ” $
+” $”% $”) $”* $”6 $!”; $&”Ì@ $+”ÌA $,”ÌB $-”ÌC $.”ÌN $9”ÌO $:”ÌP $;”ÌQ $<”ÌZ $ÌE–” $
+” $” %”# %”$ %”& %–” $
+” $” &”$ &”% &”' &˜” $
+” $” '”' '”( '”0 '”1 ' ”8 ''’” ” ‘” *–” *” *” *” *”  *”" *Ü ” +” +”% +”) +”* +”6 +”; +$”Ì@ +)”ÌA +*”ÌB ++”ÌC +,”ÌN +7”ÌO +8”ÌP +9”ÌQ +:”ÌZ +ÌC–” +” +” ,”# ,”$ ,”& ,–” +” +” -”$ -”% -”' -˜” +” +” .”' .”( .”0 .”1 .”8 .%‘” /‘” /“” 0” 0”% 0”” 1
+”! 1”# 1”% 1˜” 2
+”! 2”# 2”% 2”. 2”0 2”1 2”3 2!–” 3
+”$ 3”& 3”3 3!”4 3"”< 3*‘” 4	–” 0” 0” :	”# :”$ :”& :Ü ” 5
+” 5”% 5”) 5”* 5”6 5!”; 5&”Ì@ 5+”ÌA 5,”ÌB 5-”ÌC 5.”ÌN 59”ÌO 5:”ÌP 5;”ÌQ 5<”ÌZ 5ÌE–” 5
+” 5” 6”# 6”$ 6”& 6–” 5
+” 5” 7”$ 7”% 7”' 7˜” 5
+” 5” 8”' 8”( 8”0 8”1 8 ”8 8'’” 0” 0‘” ;”” =” =
+” =” =š” =” =
+” >	” >” >” >” >” >”  >”" >–” =” =
+” ?	” ?” ?” ?Ü ” =” =
+” Ì@	” Ì@” Ì@” Ì@”  Ì@”, Ì@$”1 Ì@)”6 Ì@.”7 Ì@/”8 Ì@0”9 Ì@1”ÌB Ì@:”ÌC Ì@;”ÌD Ì@<”ÌE Ì@=”ÌP Ì@ÌH’” =” =
+’” ” 
+‘” ÌI’” ÌJ” ÌJ’” ÌL”" ÌL š” ÌN” ÌN” ÌN” ÌN"” ÌN$”! ÌN1”# ÌN3”. ÌNÌH”0 ÌNÌJ”9 ÌNÌ]’” ÌP” ÌP	–” ÌP” ÌP	” ÌU” ÌU” ÌU”$ ÌU˜” ÌP” ÌP	” ÌV”& ÌV”' ÌV”0 ÌV”1 ÌV ”7 ÌV&”” ÌQ” ÌQ”  ÌQ”$ ÌQ–” ÌQ” ÌQ” ÌR” ÌR”  ÌR”# ÌR–” ÌQ” ÌQ” ÌS”! ÌS”" ÌS”$ ÌS’” ÌQ” ÌQ’” ÌP” ÌP	œ” ÌX” ÌX” ÌX”! ÌX”% ÌX”' ÌX”) ÌX”+ ÌX”0 ÌX”2 ÌX ”4 ÌX"”6 ÌX$–” ÌY”& ÌY”' ÌY”, ÌY”- ÌY”2 ÌY ’” ÌZ” ÌZœ” ÌZ” ÌZ” ÌZ”# ÌZ”/ ÌZ”3 ÌZ ”5 ÌZ"”: ÌZ'”< ÌZ)”ÌG ÌZ4”ÌI ÌZ6”ÌR ÌZ?‘” Ì[’” Ì\”  Ì\’” Ì]” Ì]‘” Ì^“” Ì_” Ì_” Ì_	–” Ì`” Ì`” Ì`”( Ì`”) Ì`”, Ì`"–” Ìa” Ìa” Ìa”  Ìa”! Ìa”/ Ìa%‘” Ìb–” Ì_” Ì_” Ìj” Ìj
+” Ìj” Ìj–” Ì_” Ì_” Ìk”  Ìk”! Ìk”* Ìk–” Ì_” Ì_” Ìl” Ìl” Ìl” Ìl˜” Ì_” Ì_” Ìm” Ìm” Ìm”  Ìm”! Ìm”& Ìm›” Ì_” Ì_” Ìn”! Ìn”" Ìn”# Ìn”( Ìn$”* Ìn&”5 Ìn9”7 Ìn;”9 Ìn=Ÿ” Ìo” Ìo” Ìo” Ìo” Ìo”! Ìo”# Ìo”* Ìo ”, Ìo"”1 Ìo'”2 Ìo(”: Ìo0”< Ìo2”= Ìo3”> Ìo4—” Ìp” Ìp
+” Ìp”! Ìp”$ Ìp”/ Ìp%”0 Ìp&’” Ìq” Ìq™” Ìc” Ìc
+” Ìc” Ìc”Ì— Ìd”Ì  Ìd”Ì¡ Ìd”Ì¯ Ìd ”ÍŠ ÌdÌY™” Ìe” Ìe
+” Ìe” Ìe”Ì— Ìf”Ì  Ìf”Ì¡ Ìf”Ì® Ìf”Í‰ ÌfÌV™” Ìg” Ìg
+” Ìg” Ìg”Ì— Ìh”Ì  Ìh”Ì¡ Ìh”Ì® Ìh”Í‰ ÌhÌR’” Ì_” Ì_‘” ÌrÔrF–§version¤file§sources®sourcesContent¥names¨mappingsÀ‘À‘ÀÜ ½‘”    ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”  	 ‘”  
+ ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”    ‘”  ! ‘”  " ‘”  # ‘”  $ ‘”  % ‘”  & ‘”  ' ‘”  ( ‘”  ) ‘”  * ‘”  + ‘”  , ‘”  - ‘”  . ‘”  / ‘”  0 ‘”  1 ‘”  2 ‘”  3 ‘”  4 ‘”  5 ‘”  6 ‘”  7 ‘”  8 ‘”  9 ‘”  : ‘”  ; ‘”  < ‘”  = ‘”  > ‘”  ? ‘”  Ì@ ‘”  ÌA ‘”  ÌB ‘”  ÌC ‘”  ÌD ‘”  ÌE ‘”  ÌF ‘”  ÌG ‘”  ÌH ‘”  ÌI ‘”  ÌJ ‘”  ÌK ‘”  ÌL ‘”  ÌM ‘”  ÌN ‘”  ÌO ‘”  ÌP ‘”  ÌQ ‘”  ÌR ‘”  ÌS ‘”  ÌT ‘”  ÌU ‘”  ÌV ‘”  ÌW ‘”  ÌX ‘”  ÌY ‘”  ÌZ ‘”  Ì[ ‘”  Ì\ ‘”  Ì] ‘”  Ì^ ‘”  Ì_ ‘”  Ì` ‘”  Ìa ‘”  Ìb ‘”  Ìc ‘”  Ìd ‘”  Ìe ‘”  Ìf ‘”  Ìg ‘”  Ìh ‘”  Ìi ‘”  Ìj ‘”  Ìk ‘”  Ìl ‘”  Ìm ‘”  Ìn ‘”  Ìo ‘”  Ìp ‘”  Ìq ‘”  Ìr ‘”  Ìs ‘”  Ìt ‘”  Ìu ‘”  Ìv ‘”  Ìw ‘”  Ìx ‘”  Ìy ‘”  Ìz ‘”  Ì{ ‘”  Ì| ‘”  Ì} ‘”  Ì~ ‘”  Ì ‘”  Ì€ ‘”  Ì ‘”  Ì‚ ‘”  Ìƒ ‘”  Ì„ ‘”  Ì… ‘”  Ì† ‘”  Ì‡ ‘”  Ìˆ ‘”  Ì‰ ‘”  ÌŠ ‘”  Ì‹ ‘”  ÌŒ ‘”  Ì ‘”  Ì ‘”  Ì ‘”  Ì ‘”  Ì‘ ‘”  Ì’ ‘”  Ì“ ‘”  Ì” ‘”  Ì• ‘”  Ì– ‘”  Ì— ‘”  Ì˜ ‘”  Ì™ ‘”  Ìš ‘”  Ì› ‘”  Ìœ ‘”  Ì ‘”  Ì ‘”  ÌŸ ‘”  Ì  ‘”  Ì¡ ‘”  Ì¢ ‘”  Ì£ ‘”  Ì¤ ‘”  Ì¥ ‘”  Ì¦ ‘”  Ì§ ‘”  Ì¨ ‘”  Ì© ‘”  Ìª ‘”  Ì« ‘”  Ì¬ ‘”  Ì­ ‘”  Ì® ‘”  Ì¯ ‘”  Ì° ‘”  Ì± ‘”  Ì² ‘”  Ì³ ‘”  Ì´ ‘”  Ìµ ‘”  Ì¶ ‘”  Ì· ‘”  Ì¸ ‘”  Ì¹ ‘”  Ìº ‘”  Ì» ‘”  Ì¼ ÔrG’§missing¦pluginÃ¦genAbcÂÔ  ÔrH”²dynamicImportCache¹exportAllDeclarationCache»exportNamedDeclarationCache«importCache’ÔrI•¤type¥start£endªspecifiers¦source±ImportDeclarationÍîÍ‘ÔrJ”¤type¥start£end¥local¶ImportDefaultSpecifierÍõÍúÔrK”¤type¥start£end¤nameªIdentifierÍõÍú¥hilogÔrL•¤type¥start£end¥value£raw§LiteralÍ Í«@ohos.hilog­"@ohos.hilog"I±ImportDeclarationÍÍ@‘ÔrM•¤type¥start£end¨imported¥local¯ImportSpecifierÍÍ"KªIdentifierÍÍ"©ConstantsKªIdentifierÍÍ"©ConstantsL§LiteralÍ*Í?³../common/Constantsµ'../common/Constants'

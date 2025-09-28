@@ -1,0 +1,19 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#11998e;stop-opacity:1"/>
+            <stop offset="100%" style="stop-color:#38ef7d;stop-opacity:1"/>
+        </linearGradient>
+    </defs>
+
+    <!-- 背景 -->
+    <rect x="64" y="64" width="896" height="896" rx="224" ry="224" fill="url(#grad3)"/>
+
+    <!-- 心形图标 -->
+    <path d="M512 320c-32-64-128-64-160 0-32 64 32 160 160 256 128-96 192-192 160-256-32-64-128-64-160 0z"
+          fill="white" opacity="0.95"/>
+
+    <!-- 叶子装饰 -->
+    <path d="M384 448c-16-32-64-32-80 0-16 32 16 80 80 128 64-48 96-96 80-128-16-32-64-32-80 0z"
+          fill="white" opacity="0.3"/>
+</svg>

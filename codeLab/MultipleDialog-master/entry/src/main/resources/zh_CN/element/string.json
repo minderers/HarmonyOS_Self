@@ -1,0 +1,88 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "MultipleDialog"
+    },
+    {
+      "name": "multi_popup_interaction",
+      "value": "给应用添加弹窗"
+    },
+    {
+      "name": "personalInformation",
+      "value": "个人信息"
+    },
+    {
+      "name": "hobbies_and_interests",
+      "value": "兴趣爱好"
+    },
+    {
+      "name": "cancel",
+      "value": "取消"
+    },
+    {
+      "name": "confirm",
+      "value": "确定"
+    },
+    {
+      "name": "male",
+      "value": "男"
+    },
+    {
+      "name": "female",
+      "value": "女"
+    },
+    {
+      "name": "save",
+      "value": "保存信息"
+    },
+    {
+      "name": "save_successfully",
+      "value": "保存成功"
+    },
+    {
+      "name": "nickname",
+      "value": "昵称"
+    },
+    {
+      "name": "date_of_birth",
+      "value": "出生日期"
+    },
+    {
+      "name": "sex",
+      "value": "性别"
+    },
+    {
+      "name": "personal_signature",
+      "value": "个人签名"
+    },
+    {
+      "name": "Hobbies_multiple_choices",
+      "value": "兴趣爱好（多选）"
+    },
+    {
+      "name": "tips",
+      "value": "当前页面数据未保存，是否离开"
+    },
+    {
+      "name": "year",
+      "value": "年"
+    },
+    {
+      "name": "month",
+      "value": "月"
+    },
+    {
+      "name": "day",
+      "value": "日"
+    }
+  ]
+}

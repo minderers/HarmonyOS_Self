@@ -1,0 +1,91 @@
+{
+  "HVIGOR_OHOS_PLUGIN": {
+    "MODULES": [
+      {
+        "MODULE_NAME": "1043bfc77febe75fafec0c4309faccf1",
+        "API_TYPE": "stageMode",
+        "INCREMENTAL_TASKS": {
+          "COMPILE_ARKTS": false
+        }
+      }
+    ],
+    "NATIVE_COMPILER": "Default",
+    "BUILD_MODE": "release",
+    "USE_NORMALIZED_OHMURL": true
+  },
+  "HVIGOR": {
+    "IS_INCREMENTAL": true,
+    "IS_DAEMON": true,
+    "IS_PARALLEL": true,
+    "IS_HVIGORFILE_TYPE_CHECK": false,
+    "TASK_TIME": {
+      "APP": {
+        "PreBuildApp": 226750,
+        "DuplicateDependencyCheck": 387000,
+        "MakeProjectPackInfo": 1103250,
+        "GeneratePackRes": 265042,
+        "PackageApp": 626647500,
+        "SignApp": 114071875,
+        "assembleApp": 131250
+      },
+      "1043bfc77febe75fafec0c4309faccf1": {
+        "CreateModuleInfo": 314542,
+        "GenerateMetadata": 1895500,
+        "ConfigureCmake": 302833,
+        "MergeProfile": 2083584,
+        "CreateBuildProfile": 1314333,
+        "PreCheckSyscap": 258041,
+        "GeneratePkgContextInfo": 1735958,
+        "ProcessIntegratedHsp": 221917,
+        "BuildNativeWithCmake": 107750,
+        "MakePackInfo": 1087791,
+        "SyscapTransform": 492291,
+        "ProcessProfile": 53372250,
+        "ProcessRouterMap": 2520583,
+        "ProcessStartupConfig": 528542,
+        "BuildNativeWithNinja": 374417,
+        "ProcessResource": 1178833,
+        "GenerateLoaderJson": 3652958,
+        "ProcessLibs": 1604958,
+        "CompileResource": 150128500,
+        "DoNativeStrip": 1225334,
+        "BuildJS": 610209,
+        "CacheNativeLibs": 332344250,
+        "CompileArkTS": 5446153417,
+        "GeneratePkgModuleJson": 849917,
+        "PackageHap": 36796125,
+        "SignHap": 152293250,
+        "CollectDebugSymbol": 1055792,
+        "assembleHap": 108708
+      }
+    },
+    "APIS": [
+      "getHvigorConfig",
+      "getRootNodeDescriptor",
+      "getChildNode",
+      "getNodeByName",
+      "getAllNodes",
+      "getRootNode",
+      "getNodeName",
+      "getNodePath",
+      "subNodes",
+      "getExtraOption",
+      "getExtParam",
+      "getExtParams",
+      "getProperty",
+      "getProperties",
+      "getParameter",
+      "getProductName",
+      "nodesEvaluated",
+      "getCommandEntryTask",
+      "getStartParams"
+    ],
+    "CONFIG_PROPERTIES": {
+      "enableSignTask": true,
+      "skipNativeIncremental": false,
+      "hvigor_keepDependency": true
+    },
+    "TOTAL_TIME": 6789499250,
+    "BUILD_ID": "202509281358431980"
+  }
+}

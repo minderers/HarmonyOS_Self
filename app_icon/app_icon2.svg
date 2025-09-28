@@ -1,0 +1,22 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="grad4" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#667eea;stop-opacity:1"/>
+            <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1"/>
+        </linearGradient>
+    </defs>
+
+    <!-- 背景 -->
+    <rect x="0" y="0" width="1024" height="1024" rx="256" ry="256" fill="url(#grad4)"/>
+
+    <!-- 文件夹图标 -->
+    <path d="M256 320c-17.7 0-32 14.3-32 32v320c0 17.7 14.3 32 32 32h512c17.7 0 32-14.3 32-32V416c0-35.3-28.7-64-64-64H480l-64-64H256z"
+          fill="white" opacity="0.9"/>
+
+    <!-- 文档线条 -->
+    <g stroke="white" stroke-width="16" stroke-linecap="round" opacity="0.7">
+        <path d="M384 512h256"/>
+        <path d="M384 576h256"/>
+        <path d="M384 640h128"/>
+    </g>
+</svg>

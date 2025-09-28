@@ -1,0 +1,274 @@
+Ôr@Ÿªassertions¤code´customTransformCache¬dependencies¢id¤meta±moduleSideEffects¬originalCode±originalSourcemap«resolvedIds®sourcemapChainµsyntheticNamedExportsµtransformDependencies®transformFiles¨cacheAstÔrAÚAif (!("finalizeConstruction" in ViewPU.prototype)) {
+    Reflect.set(ViewPU.prototype, "finalizeConstruction", () => { });
+}
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import { Constants } from '../common/Constants';
+import { DiscoverPage } from '../view/DiscoverPage';
+class DoubleNestingTabOne extends ViewPU {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda = undefined, extraInfo) {
+        super(parent, __localStorage, elmtId, extraInfo);
+        if (typeof paramsLambda === "function") {
+            this.paramsGenerator_ = paramsLambda;
+        }
+        this.__topTabData = new ObservedPropertyObjectPU(Constants.TOP_TAB_DATA, this, "topTabData");
+        this.__currentIndex = new ObservedPropertySimplePU(0, this, "currentIndex");
+        this.controller = new TabsController();
+        this.setInitiallyProvidedValue(params);
+        this.finalizeConstruction();
+    }
+    setInitiallyProvidedValue(params) {
+        if (params.topTabData !== undefined) {
+            this.topTabData = params.topTabData;
+        }
+        if (params.currentIndex !== undefined) {
+            this.currentIndex = params.currentIndex;
+        }
+        if (params.controller !== undefined) {
+            this.controller = params.controller;
+        }
+    }
+    updateStateVars(params) {
+    }
+    purgeVariableDependenciesOnElmtId(rmElmtId) {
+        this.__topTabData.purgeDependencyOnElmtId(rmElmtId);
+        this.__currentIndex.purgeDependencyOnElmtId(rmElmtId);
+    }
+    aboutToBeDeleted() {
+        this.__topTabData.aboutToBeDeleted();
+        this.__currentIndex.aboutToBeDeleted();
+        SubscriberManager.Get().delete(this.id__());
+        this.aboutToBeDeletedInternal();
+    }
+    get topTabData() {
+        return this.__topTabData.get();
+    }
+    set topTabData(newValue) {
+        this.__topTabData.set(newValue);
+    }
+    get currentIndex() {
+        return this.__currentIndex.get();
+    }
+    set currentIndex(newValue) {
+        this.__currentIndex.set(newValue);
+    }
+    tabBuilder(index, name, parent = null) {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Column.create();
+            Column.width(Constants.FULL_WIDTH);
+        }, Column);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Text.create(name);
+            Text.fontColor({ "id": 16777386, "type": 10001, params: [], "bundleName": "com.example.multitabs", "moduleName": "entry" });
+            Text.fontSize(this.currentIndex === index ? { "id": 16777389, "type": 10002, params: [], "bundleName": "com.example.multitabs", "moduleName": "entry" } : { "id": 16777391, "type": 10002, params: [], "bundleName": "com.example.multitabs", "moduleName": "entry" });
+            Text.fontWeight(this.currentIndex === index ? Constants.FONT_WEIGHT_TAB : FontWeight.Normal);
+        }, Text);
+        Text.pop();
+        Column.pop();
+    }
+    contentBuilder(index, text, parent = null) {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            TabContent.create(() => {
+                this.observeComponentCreation2((elmtId, isInitialRender) => {
+                    Column.create();
+                    Column.width(Constants.FULL_WIDTH);
+                }, Column);
+                this.observeComponentCreation2((elmtId, isInitialRender) => {
+                    Row.create();
+                    Row.width(Constants.FULL_WIDTH);
+                    Row.height(Constants.FULL_HEIGHT);
+                    Row.justifyContent(FlexAlign.Center);
+                }, Row);
+                this.observeComponentCreation2((elmtId, isInitialRender) => {
+                    Text.create(text);
+                    Text.height(Constants.CONTENT_HEIGHT);
+                    Text.fontSize({ "id": 16777388, "type": 10002, params: [], "bundleName": "com.example.multitabs", "moduleName": "entry" });
+                }, Text);
+                Text.pop();
+                Row.pop();
+                Column.pop();
+            });
+            TabContent.tabBar({ builder: () => {
+                    this.tabBuilder.call(this, index, text);
+                } });
+        }, TabContent);
+        TabContent.pop();
+    }
+    initialRender() {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Column.create();
+            Column.width(Constants.FULL_WIDTH);
+        }, Column);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Tabs.create({ barPosition: BarPosition.Start, controller: this.controller });
+            Tabs.vertical(false);
+            Tabs.barMode(BarMode.Fixed);
+            Tabs.barWidth(Constants.FULL_WIDTH);
+            Tabs.barHeight({ "id": 16777394, "type": 10002, params: [], "bundleName": "com.example.multitabs", "moduleName": "entry" });
+            Tabs.animationDuration(Constants.ANIMATION_DURATION);
+            Tabs.onAnimationStart((_index, targetIndex) => {
+                this.currentIndex = targetIndex;
+            });
+            Tabs.width(Constants.FULL_WIDTH);
+            Tabs.height(Constants.FULL_HEIGHT);
+        }, Tabs);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            TabContent.create(() => {
+                {
+                    this.observeComponentCreation2((elmtId, isInitialRender) => {
+                        if (isInitialRender) {
+                            let componentCall = new DiscoverPage(this, { controller: this.controller }, undefined, elmtId, () => { }, { page: "entry/src/main/ets/pages/DoubleNestingTabTwo.ets", line: 59, col: 11 });
+                            ViewPU.create(componentCall);
+                            let paramsLambda = () => {
+                                return {
+                                    controller: this.controller
+                                };
+                            };
+                            componentCall.paramsGenerator_ = paramsLambda;
+                        }
+                        else {
+                            this.updateStateVarsOfChildByElmtId(elmtId, {});
+                        }
+                    }, { name: "DiscoverPage" });
+                }
+            });
+            TabContent.tabBar({ builder: () => {
+                    this.tabBuilder.call(this, Constants.TAB_INDEX_ZERO, this.topTabData[Constants.TAB_INDEX_ZERO]);
+                } });
+        }, TabContent);
+        TabContent.pop();
+        this.contentBuilder.bind(this)(Constants.TAB_INDEX_ONE, this.topTabData[Constants.TAB_INDEX_ONE]);
+        this.contentBuilder.bind(this)(Constants.TAB_INDEX_TWO, this.topTabData[Constants.TAB_INDEX_TWO]);
+        this.contentBuilder.bind(this)(Constants.TAB_INDEX_THREE, this.topTabData[Constants.TAB_INDEX_THREE]);
+        Tabs.pop();
+        Column.pop();
+    }
+    rerender() {
+        this.updateDirtyElements();
+    }
+    static getEntryName() {
+        return "DoubleNestingTabOne";
+    }
+}
+registerNamedRoute(() => new DoubleNestingTabOne(undefined, {}), "", { bundleName: "com.example.multitabs", moduleName: "entry", pagePath: "pages/DoubleNestingTabTwo", pageFullPath: "entry/src/main/ets/pages/DoubleNestingTabTwo", integratedHsp: "false", moduleType: "followWithHap" });
+//# sourceMappingURL=DoubleNestingTabTwo.js.mapÂ’Ù`/Users/moqi/Desktop/Open_Harmony/code/MultiTabNavigation/entry/src/main/ets/common/Constants.etsÙa/Users/moqi/Desktop/Open_Harmony/code/MultiTabNavigation/entry/src/main/ets/view/DiscoverPage.etsÙi/Users/moqi/Desktop/Open_Harmony/code/MultiTabNavigation/entry/src/main/ets/pages/DoubleNestingTabTwo.etsÔrBšªmoduleName±isLocalDependency¯isNodeEntryFile§pkgPath±belongProjectPath§pkgNameªpkgVersion±dependencyPkgInfo°belongModulePath¬shouldEmitJs¥entryÃÂÙ>/Users/moqi/Desktop/Open_Harmony/code/MultiTabNavigation/entryÙ8/Users/moqi/Desktop/Open_Harmony/code/MultiTabNavigation¥entry¥1.0.0Ô  Ù>/Users/moqi/Desktop/Open_Harmony/code/MultiTabNavigation/entryÃÃÚ/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { Constants } from '../common/Constants';
+import { DiscoverPage } from '../view/DiscoverPage';
+
+@Entry
+@Component
+struct DoubleNestingTabOne {
+  @State topTabData: Array<string | Resource> = Constants.TOP_TAB_DATA;
+  @State currentIndex: number = 0;
+  private controller: TabsController = new TabsController();
+
+  @Builder
+  tabBuilder(index: number, name: string | Resource) {
+    Column() {
+      Text(name)
+        .fontColor($r('app.color.text_color'))
+        .fontSize(this.currentIndex === index ? $r('app.float.current_text_size') : $r('app.float.double_text_size'))
+        .fontWeight(this.currentIndex === index ? Constants.FONT_WEIGHT_TAB : FontWeight.Normal)
+    }
+    .width(Constants.FULL_WIDTH)
+  }
+
+  @Builder
+  contentBuilder(index: number, text: string | Resource) {
+    TabContent() {
+      Column() {
+        Row() {
+          Text(text)
+            .height(Constants.CONTENT_HEIGHT)
+            .fontSize($r('app.float.content_font_size'))
+        }
+        .width(Constants.FULL_WIDTH)
+        .height(Constants.FULL_HEIGHT)
+        .justifyContent(FlexAlign.Center)
+      }
+      .width(Constants.FULL_WIDTH)
+    }
+    .tabBar(this.tabBuilder(index, text))
+  }
+
+  build() {
+    Column() {
+      Tabs({ barPosition: BarPosition.Start, controller: this.controller }) {
+        TabContent() {
+          DiscoverPage({ controller: this.controller })
+        }
+        .tabBar(this.tabBuilder(Constants.TAB_INDEX_ZERO, this.topTabData[Constants.TAB_INDEX_ZERO]))
+
+        this.contentBuilder(Constants.TAB_INDEX_ONE, this.topTabData[Constants.TAB_INDEX_ONE])
+        this.contentBuilder(Constants.TAB_INDEX_TWO, this.topTabData[Constants.TAB_INDEX_TWO])
+        this.contentBuilder(Constants.TAB_INDEX_THREE, this.topTabData[Constants.TAB_INDEX_THREE])
+      }
+      .vertical(false)
+      .barMode(BarMode.Fixed)
+      .barWidth(Constants.FULL_WIDTH)
+      .barHeight($r('app.float.mainPage_barHeight'))
+      .animationDuration(Constants.ANIMATION_DURATION)
+      .onAnimationStart((_index: number, targetIndex: number) => {
+        this.currentIndex = targetIndex;
+      })
+      .width(Constants.FULL_WIDTH)
+      .height(Constants.FULL_HEIGHT)
+    }
+    .width(Constants.FULL_WIDTH)
+  }
+}ÀÔrC’³../common/Constants´../view/DiscoverPageÔrD—ªassertions¨external¢id¤meta±moduleSideEffectsªresolvedByµsyntheticNamedExportsAÂÙ`/Users/moqi/Desktop/Open_Harmony/code/MultiTabNavigation/entry/src/main/ets/common/Constants.etsAÃªoh-resolveÂDAÂÙa/Users/moqi/Desktop/Open_Harmony/code/MultiTabNavigation/entry/src/main/ets/view/DiscoverPage.etsAÃªoh-resolveÂ“ÔrE–§version¤fileªsourceRoot§sources¥names¨mappings¶DoubleNestingTabTwo.js ‘·DoubleNestingTabTwo.etsÜ ‘”    ‘” ˜”   ” ”	 	” ” ” ”/ /”0 0˜”   ” ”	 	” ” ” ”3 3”4 4’” ” ‘”  ””9 0”ÌB 9”ÌC :”ÌO ÌF’”;  ”< !”” '” +”, 9”. ;‘” 4’” 	” ’” 	” ’” 	” ’” 	” –” ” ” ” ” ” 3’” ” 
+˜” ” 
+” !” !
+” !”" !”# !”- !”” ” 
+” ” ”” ” 
+” 	” Ÿ” ” 
+” 	” ” ” ” ”+ #”0 (”5 -”6 .”7 /”Ì¤ ÌR”Ì¥ ÌS”Í ÌtÜ ” ” 
+” 	” ” ”  ”! ”- %”2 *”7 /”8 0”9 1”: 2”ÌC ;”ÌD <”ÌS ÌK”ÌT ÌL”ÌU ÌM”ÌV ÌN”Ì` ÌX”Ìa ÌY”Ìg Ì_’” ” 
+’” ” 
+‘” "–” %” %” %” %” % ” %7’” '” '˜” '” '” 1”  1”! 1”* 1”+ 1”5 1!’” (” (˜” (” (” -	” -” -”' -”( -”2 -#˜” (” (” .	” .” .”( .”) .”4 .%˜” (” (” /	”& /”' /”0 /!”1 /"”7 /(”” )
+” )”  )”$ )˜” )
+” )” *” *”  *”) *”* *”8 *,”” )
+” )” +”! +’” )
+” )’” (” (’” '” '’” 3” 3˜” 3” 3” 3”# 3”/ 3”4 3!”6 3#”: 3'‘” 4‘” 6’” 7” 7
+˜” 7” 7
+” ÌM” ÌM
+” ÌM”" ÌM”# ÌM”- ÌMÜ ” 8” 8
+” 8” 8”% 8”' 8”2 8%”3 8&”8 8+”: 8-”ÌD 87”ÌF 89”ÌJ 8=”ÌK 8>”ÌU 8ÌH”ÌW 8ÌJ–” 8” 8
+” ÌB” ÌB” ÌB” ÌB˜” 8” 8
+” ÌC” ÌC” ÌC”  ÌC”! ÌC”& ÌC˜” 8” 8
+” ÌD” ÌD” ÌD”# ÌD”$ ÌD”. ÌD$”” 8” 8
+” ÌE” ÌE˜” 8” 8
+” ÌF”" ÌF”# ÌF”, ÌF"”- ÌF#”? ÌF5›” 8” 8
+” ÌG”! ÌG”" ÌG”# ÌG”) ÌG'”+ ÌG)”6 ÌG<”8 ÌG>”: ÌGÌ@—” ÌH” ÌH” ÌH”! ÌH”$ ÌH”/ ÌH'”0 ÌH(’” ÌI” ÌI˜” 8” 8
+” ÌJ” ÌJ” ÌJ”  ÌJ”! ÌJ”+ ÌJ!˜” 8” 8
+” ÌK” ÌK” ÌK”! ÌK”" ÌK”- ÌK#š”4 :
+”Ì@ :”ÌG :”ÌI :”ÌS :#”ÌU :%”ÌY :)”ÌZ :*”Ìd :4”Ìf :6–”$ :”. :#”0 :%”4 :)”5 :*”? :4’” <	” <Ü ” <” <” <”# <”/ < ”8 <)”9 <*”ÌG <8”ÌI <:”ÌM <>”ÌN <?”ÌX <ÌI”ÌY <ÌJ”Ìb <ÌS”Ìc <ÌT”Ìq <Ìb”Ìr <ÌcÜ ” >” >” >” >”' >”0 >%”1 >&”> >3”Ì@ >5”ÌD >9”ÌE >:”ÌO >ÌD”ÌP >ÌE”ÌY >ÌN”ÌZ >ÌO”Ìg >Ì\”Ìh >Ì]”Ìi >Ì^Ü ” ?” ?” ?” ?”' ?”0 ?%”1 ?&”> ?3”Ì@ ?5”ÌD ?9”ÌE ?:”ÌO ?ÌD”ÌP ?ÌE”ÌY ?ÌN”ÌZ ?ÌO”Ìg ?Ì\”Ìh ?Ì]”Ìi ?Ì^Ü ” Ì@” Ì@” Ì@” Ì@”' Ì@”0 Ì@%”1 Ì@&”Ì@ Ì@5”ÌB Ì@7”ÌF Ì@;”ÌG Ì@<”ÌQ Ì@ÌF”ÌR Ì@ÌG”Ì[ Ì@ÌP”Ì\ Ì@ÌQ”Ìk Ì@Ì`”Ìl Ì@Ìa”Ìm Ì@Ìb’” 8” 8
+’” 7” 7
+‘” ÌNÔrF–§version¤file§sources®sourcesContent¥names¨mappingsÀ‘À‘ÀÜ ¦‘”    ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”  	 ‘”  
+ ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”    ‘”  ! ‘”  " ‘”  # ‘”  $ ‘”  % ‘”  & ‘”  ' ‘”  ( ‘”  ) ‘”  * ‘”  + ‘”  , ‘”  - ‘”  . ‘”  / ‘”  0 ‘”  1 ‘”  2 ‘”  3 ‘”  4 ‘”  5 ‘”  6 ‘”  7 ‘”  8 ‘”  9 ‘”  : ‘”  ; ‘”  < ‘”  = ‘”  > ‘”  ? ‘”  Ì@ ‘”  ÌA ‘”  ÌB ‘”  ÌC ‘”  ÌD ‘”  ÌE ‘”  ÌF ‘”  ÌG ‘”  ÌH ‘”  ÌI ‘”  ÌJ ‘”  ÌK ‘”  ÌL ‘”  ÌM ‘”  ÌN ‘”  ÌO ‘”  ÌP ‘”  ÌQ ‘”  ÌR ‘”  ÌS ‘”  ÌT ‘”  ÌU ‘”  ÌV ‘”  ÌW ‘”  ÌX ‘”  ÌY ‘”  ÌZ ‘”  Ì[ ‘”  Ì\ ‘”  Ì] ‘”  Ì^ ‘”  Ì_ ‘”  Ì` ‘”  Ìa ‘”  Ìb ‘”  Ìc ‘”  Ìd ‘”  Ìe ‘”  Ìf ‘”  Ìg ‘”  Ìh ‘”  Ìi ‘”  Ìj ‘”  Ìk ‘”  Ìl ‘”  Ìm ‘”  Ìn ‘”  Ìo ‘”  Ìp ‘”  Ìq ‘”  Ìr ‘”  Ìs ‘”  Ìt ‘”  Ìu ‘”  Ìv ‘”  Ìw ‘”  Ìx ‘”  Ìy ‘”  Ìz ‘”  Ì{ ‘”  Ì| ‘”  Ì} ‘”  Ì~ ‘”  Ì ‘”  Ì€ ‘”  Ì ‘”  Ì‚ ‘”  Ìƒ ‘”  Ì„ ‘”  Ì… ‘”  Ì† ‘”  Ì‡ ‘”  Ìˆ ‘”  Ì‰ ‘”  ÌŠ ‘”  Ì‹ ‘”  ÌŒ ‘”  Ì ‘”  Ì ‘”  Ì ‘”  Ì ‘”  Ì‘ ‘”  Ì’ ‘”  Ì“ ‘”  Ì” ‘”  Ì• ‘”  Ì– ‘”  Ì— ‘”  Ì˜ ‘”  Ì™ ‘”  Ìš ‘”  Ì› ‘”  Ìœ ‘”  Ì ‘”  Ì ‘”  ÌŸ ‘”  Ì  ‘”  Ì¡ ‘”  Ì¢ ‘”  Ì£ ‘”  Ì¤ ‘”  Ì¥ ÔrG’§missing¦pluginÃ¦genAbcÂÔ  ÔrH”²dynamicImportCache¹exportAllDeclarationCache»exportNamedDeclarationCache«importCache’ÔrI•¤type¥start£endªspecifiers¦source±ImportDeclarationÍîÍ‘ÔrJ•¤type¥start£end¨imported¥local¯ImportSpecifierÍ÷Í ÔrK”¤type¥start£end¤nameªIdentifierÍ÷Í ©ConstantsKªIdentifierÍ÷Í ©ConstantsÔrL•¤type¥start£end¥value£raw§LiteralÍÍ³../common/Constantsµ'../common/Constants'I±ImportDeclarationÍ ÍT‘J¯ImportSpecifierÍ)Í5KªIdentifierÍ)Í5¬DiscoverPageKªIdentifierÍ)Í5¬DiscoverPageL§LiteralÍ=ÍS´../view/DiscoverPage¶'../view/DiscoverPage'

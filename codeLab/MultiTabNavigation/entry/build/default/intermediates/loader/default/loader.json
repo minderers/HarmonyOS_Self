@@ -1,0 +1,25 @@
+{
+  "modulePathMap": {
+    "entry": "/Users/moqi/Desktop/Open_Harmony/code/MultiTabNavigation/entry"
+  },
+  "compileMode": "esmodule",
+  "projectRootPath": "/Users/moqi/Desktop/Open_Harmony/code/MultiTabNavigation",
+  "nodeModulesPath": "/Users/moqi/Desktop/Open_Harmony/code/MultiTabNavigation/entry/build/default/intermediates/loader_out/default/node_modules",
+  "byteCodeHarInfo": {},
+  "declarationEntry": [],
+  "moduleName": "entry",
+  "hspNameOhmMap": {},
+  "harNameOhmMap": {},
+  "packageManagerType": "ohpm",
+  "compileEntry": [],
+  "otherCompileFiles": [],
+  "dynamicImportLibInfo": {},
+  "routerMap": [],
+  "hspResourcesMap": {},
+  "updateVersionInfo": {},
+  "anBuildOutPut": "/Users/moqi/Desktop/Open_Harmony/code/MultiTabNavigation/entry/build/default/intermediates/loader_out/default/an/arm64-v8a",
+  "anBuildMode": "type",
+  "patchConfig": {
+    "changedFileList": "/Users/moqi/Desktop/Open_Harmony/code/MultiTabNavigation/entry/build/default/intermediates/patch/default/changedFileList.json"
+  }
+}

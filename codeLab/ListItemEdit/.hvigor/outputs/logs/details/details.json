@@ -1,0 +1,83 @@
+{
+  "HVIGOR_OHOS_PLUGIN": {
+    "MODULES": [
+      {
+        "MODULE_NAME": "1043bfc77febe75fafec0c4309faccf1",
+        "API_TYPE": "stageMode",
+        "INCREMENTAL_TASKS": {
+          "COMPILE_ARKTS": false
+        }
+      }
+    ],
+    "NATIVE_COMPILER": "Default",
+    "BUILD_MODE": "debug"
+  },
+  "HVIGOR": {
+    "IS_INCREMENTAL": true,
+    "IS_DAEMON": true,
+    "IS_PARALLEL": true,
+    "IS_HVIGORFILE_TYPE_CHECK": false,
+    "TASK_TIME": {
+      "1043bfc77febe75fafec0c4309faccf1": {
+        "PreBuild": 66121167,
+        "CreateModuleInfo": 426709,
+        "GenerateMetadata": 1152750,
+        "ConfigureCmake": 147167,
+        "MergeProfile": 1714834,
+        "CreateBuildProfile": 721208,
+        "PreCheckSyscap": 175250,
+        "GeneratePkgContextInfo": 3389875,
+        "ProcessIntegratedHsp": 279833,
+        "BuildNativeWithCmake": 158584,
+        "MakePackInfo": 1731541,
+        "SyscapTransform": 584000,
+        "ProcessProfile": 55627250,
+        "ProcessRouterMap": 1127917,
+        "ProcessStartupConfig": 417000,
+        "BuildNativeWithNinja": 431583,
+        "ProcessResource": 1915292,
+        "GenerateLoaderJson": 3076541,
+        "ProcessLibs": 2582250,
+        "CompileResource": 150485875,
+        "DoNativeStrip": 1224541,
+        "BuildJS": 662417,
+        "CacheNativeLibs": 351745958,
+        "CompileArkTS": 4306713041,
+        "GeneratePkgModuleJson": 653458,
+        "PackageHap": 20262583,
+        "SignHap": 625333,
+        "CollectDebugSymbol": 372792,
+        "assembleHap": 108208
+      }
+    },
+    "APIS": [
+      "getHvigorConfig",
+      "getRootNodeDescriptor",
+      "getChildNode",
+      "getNodeByName",
+      "getAllNodes",
+      "getRootNode",
+      "getNodeName",
+      "getStartParams",
+      "buildFinished",
+      "getNodePath",
+      "subNodes",
+      "getExtraOption",
+      "getExtParam",
+      "getExtParams",
+      "getProperty",
+      "getProperties",
+      "getProductName",
+      "nodesEvaluated",
+      "getParameter",
+      "getCommandEntryTask"
+    ],
+    "CONFIG_PROPERTIES": {
+      "enableSignTask": true,
+      "skipNativeIncremental": false,
+      "hvigor_keepDependency": true
+    },
+    "BUILD_ID": "202509281252109400",
+    "TOTAL_TIME": 5435110000
+  }
+}

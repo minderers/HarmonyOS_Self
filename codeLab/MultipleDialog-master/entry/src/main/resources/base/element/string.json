@@ -1,0 +1,88 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "MultipleDialog"
+    },
+    {
+      "name": "multi_popup_interaction",
+      "value": "Add pop-ups to your app"
+    },
+    {
+      "name": "personalInformation",
+      "value": "PersonalInformation"
+    },
+    {
+      "name": "hobbies_and_interests",
+      "value": "Hobbies and interests"
+    },
+    {
+      "name": "cancel",
+      "value": "Cancel"
+    },
+    {
+      "name": "confirm",
+      "value": "Confirm"
+    },
+    {
+      "name": "male",
+      "value": "Male"
+    },
+    {
+      "name": "female",
+      "value": "Female"
+    },
+    {
+      "name": "save",
+      "value": "Save"
+    },
+    {
+      "name": "save_successfully",
+      "value": "Save successfully"
+    },
+    {
+      "name": "nickname",
+      "value": "Nickname"
+    },
+    {
+      "name": "date_of_birth",
+      "value": "Date of birth"
+    },
+    {
+      "name": "sex",
+      "value": "Sex"
+    },
+    {
+      "name": "personal_signature",
+      "value": "Personal signature"
+    },
+    {
+      "name": "Hobbies_multiple_choices",
+      "value": "Hobbies (multiple choices)"
+    },
+    {
+      "name": "tips",
+      "value": "Data on the current page is not saved. Determine whether to leave"
+    },
+    {
+      "name": "year",
+      "value": "/"
+    },
+    {
+      "name": "month",
+      "value": "/"
+    },
+    {
+      "name": "day",
+      "value": ""
+    }
+  ]
+}

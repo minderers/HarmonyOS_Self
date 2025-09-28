@@ -1,0 +1,24 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <radialGradient id="grad2" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" style="stop-color:#667eea;stop-opacity:1"/>
+            <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1"/>
+        </radialGradient>
+    </defs>
+
+    <!-- 背景 -->
+    <rect x="0" y="0" width="1024" height="1024" rx="256" ry="256" fill="url(#grad2)"/>
+
+    <!-- 房屋轮廓 -->
+    <path d="M512 256L320 448v320h128V576h128v192h128V448z"
+          fill="white" opacity="0.9"/>
+
+    <!-- 科技元素 - 电路板风格 -->
+    <g stroke="white" stroke-width="8" fill="none" opacity="0.6">
+        <path d="M256 384L384 384"/>
+        <path d="M640 384L768 384"/>
+        <path d="M512 256L512 384"/>
+        <circle cx="384" cy="384" r="16" fill="white"/>
+        <circle cx="640" cy="384" r="16" fill="white"/>
+    </g>
+</svg>
